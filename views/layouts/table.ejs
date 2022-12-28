@@ -1,0 +1,44 @@
+<table>
+    <thead>
+        <tr>
+            <%Object.values(data.headers).map(val => { %>
+                <th><%=val %></th>
+            <% }) %>
+        </tr>
+    </thead>
+    <tbody>
+        <% if(data.rows.length > 0) { %>
+        <% data.rows.map(row => { %>
+            <tr>
+                <%Object.values(row).map((val, i) => { %>
+                    <td>
+                        <%if(i == Object.values(row).length - 1) {%>
+                            <% if(val == 'action') { %>
+                                <% if(sessiondata && sessiondata.userid && sessiondata.usertype == 'admin') { %> 
+                                    User is not eligible for print
+                                    <% } else {%>
+                                    Decision already has been made
+                                <% } %>
+                            <% } else { %>
+                                <% if(sessiondata && sessiondata.userid && sessiondata.usertype == 'admin') { %>
+                                    <a href="/printlicense?userid=<%=val%>">Print</a>
+                                    <% } else { %>
+                                    <a href="/reviewprofile?userid=<%=val%>">Update status</a>
+                                <% } %>
+                            <% } %>
+                        <% } else {%>
+                            <%=val%>
+                        <% } %>
+                    </td>
+                <% }) %>
+            </tr> 
+        <% }) %>
+        <% } else { %>
+            <tr>
+                <td colspan="<%=Object.values(data.headers).length%>">
+                    No record found
+                </td>
+            </tr>
+        <% } %>
+    </tbody>
+</table>

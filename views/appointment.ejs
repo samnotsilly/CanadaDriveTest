@@ -1,0 +1,59 @@
+<%- include('./layouts/headStart') %>
+
+<%- include('./layouts/headContent') %>
+
+<title>Drive Test | Appointment</title>
+
+<%- include('./layouts/headEnd') %>
+
+<body>
+    <%- include('./layouts/header') %>
+    <main class="form-container">
+        <section>
+            <h1>
+                Welcome to Drive Test Appointment Page
+            </h1>
+            <form method="get" action="/appointment">
+                <div class="container">
+
+                    <label for="appointmentDate"><b>Select date</b></label>
+                    <input type="date" placeholder="Select date" name="appointmentDate" value="<%=bookingDate%>"
+                        onchange="this.form.submit()">
+                    <p>Select or change date to get slots</p>
+                </div>
+            </form>
+            <% if(slots.length > 0) { %>
+            <br />
+            <form method="post" action="/appointment">
+                <div class="container">
+                    <input type="hidden" name="appointmentDate" value="<%=bookingDate%>" />
+                    <h3>Date : <%=bookingDate%> | Slot list</h3>
+                    <div class="slot">
+                        <% for(let i = 0; i < slots.length; i++) { %>
+                        <label>
+                            <% if(slots[i].isAdded) {%>
+                            <input type="checkbox" name="slot_<%=slots[i].time%>" checked disabled> <%=slots[i].time%>
+                            <% } else { %>
+                            <input type="checkbox" name="slot_<%=slots[i].time%>"> <%=slots[i].time%>
+                            <%  } %>
+                        </label>
+                        <% } %>
+                    </div>
+                    <button type="submit">Add</button>
+                </div>
+            </form>
+            <% } %>
+            <% if(msg) {%>
+            <h1><%= msg %></h1>
+            <p>please <a href="/appointment">click here</a> to add another booking slot</p>
+            <% }%>
+        </section>
+    </main>
+
+    <%- include('./layouts/footer') %>
+</body>
+
+</html>
+
+<!-- Name :- Neel Vinodbhai Patel -->
+<!-- Studen id :- 8775302 -->

@@ -1,0 +1,33 @@
+<header>
+    <img src="images/main-logo.png" alt="Site Logo" />
+    <nav>
+        <ul>
+
+            <li class="<%=currentPage == '/' ? 'active': ''%>">
+                <a href="/"><% if(sessiondata && sessiondata.userid && sessiondata.usertype == 'examiner') { %> Examiner <% } else {%> Dashbaord <% } %> </a>
+            </li>
+            <% if(sessiondata && sessiondata.userid && sessiondata.usertype == 'driver') { %>
+            <li class="<%=currentPage == '/g2' ? 'active': ''%>">
+                <a href="/g2">G2 Test</a>
+            </li>
+            <li class="<%=currentPage == '/g' ? 'active': ''%>">
+                <a href="/g">G Test</a>
+            </li>
+            <% } else if(sessiondata && sessiondata.userid && sessiondata.usertype == 'admin') { %>
+            <li class="<%=currentPage == '/appointment' ? 'active': ''%>">
+                <a href="/appointment">Appointment</a>
+            </li>
+            <% } %>
+            <% if(sessiondata && sessiondata.userid) { %>
+            <li>
+                <a href="/logout">Logout</a>
+            </li>
+            <% } %>
+            <% if(!(sessiondata && sessiondata.userid)) { %>
+            <li class="<%=currentPage == '/login' || currentPage == '/signup' ? 'active': ''%>">
+                <a href="/login">Login</a>
+            </li>
+            <% } %>
+        </ul>
+    </nav>
+</header>

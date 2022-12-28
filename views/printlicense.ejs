@@ -1,0 +1,77 @@
+<%- include('./layouts/headStart') %>
+
+<%- include('./layouts/headContent') %>
+
+<title>Drive Test | G</title>
+
+<%- include('./layouts/headEnd') %>
+
+<body>
+    <%- include('./layouts/header') %>
+    <main class="form-container">
+        <section>
+            <h1>
+                Welcome to Drive Test Print Page
+            </h1>
+            <% if(data) {%>
+            <% if(data instanceof Object) { %>
+            <form method="post" action="/printlicense">
+                <div class="container">
+                    <input type="hidden" name="id" value="<%=data._id%>">
+                    <label for="firstname"><b>First name</b></label>
+                    <input type="text" placeholder="Enter first name" name="firstname" value="<%=data.firstname%>"
+                        readonly disabled>
+                    <label for="lastname"><b>Last name</b></label>
+                    <input type="text" placeholder="Enter last name" name="lastname" value="<%=data.lastname%>" readonly
+                        disabled>
+                    <label for="username"><b>Username</b></label>
+                    <input type="text" placeholder="Enter username" name="username" value="<%=data.username%>" readonly
+                        disabled>
+                    <label for="dob"><b>Date of birth</b></label>
+                    <input type="date" placeholder="Enter date of birth" name="dob" value="<%=data.dob%>" readonly
+                        disabled>
+                    <label for="licensenumber"><b>License Number</b></label>
+                    <input type="text" placeholder="Enter license number" name="licensenumber"
+                        value="<%=data.licensenumber%>" readonly disabled>
+                    <label for="address"><b>Address</b></label>
+                    <input type="text" placeholder="Enter address" name="address" value="<%=data.address%>" readonly
+                    disabled>
+                    <label for="city"><b>City</b></label>
+                    <input type="text" placeholder="Enter city" name="city" value="<%=data.city%>" readonly
+                    disabled>
+                    <label for="pincode"><b>Pincode</b></label>
+                    <input type="text" placeholder="Enter pincode" name="pincode" value="<%=data.pincode%>" readonly
+                    disabled>
+
+                    <label for="carmodal"><b>Car Modal</b></label>
+                    <input type="text" placeholder="Enter car modal" name="carmodal" value="<%=data.carmodal%>" readonly
+                    disabled>
+                    <label for="registrationyear"><b>Registration Year</b></label>
+                    <input type="text" placeholder="Enter Registration year" name="registrationyear"
+                        value="<%=data.registrationyear%>" readonly
+                        disabled>
+                    <label for="carcompanyname"><b>Company name</b></label>
+                    <input type="text" placeholder="Enter company name" name="carcompanyname"
+                        value="<%=data.carcompanyname%>" readonly
+                        disabled>
+                    <button type="submit">Print</button>
+                </div>
+            </form>
+            <% } else { %>
+            <div class="alert success">
+                <strong>Congratulations!</strong> Order successfully placed for <%=data%>.
+            </div>
+            <h1>
+                Please <a href="/">click here</a> to go to admin dashboard page
+            </h1>
+            <% } %>
+            <% } %>
+        </section>
+    </main>
+    <%- include('./layouts/footer') %>
+</body>
+
+</html>
+
+<!-- Name :- Neel Vinodbhai Patel -->
+<!-- Studen id :- 8775302 -->

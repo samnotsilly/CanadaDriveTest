@@ -1,0 +1,46 @@
+<%- include('./layouts/headStart') %>
+
+<%- include('./layouts/headContent') %>
+
+<title>Drive Test | Login</title>
+
+<%- include('./layouts/headEnd') %>
+
+<body>
+    <%- include('./layouts/header') %>
+    <main class="form-container">
+        <section>
+            <h1>
+                Welcome to Drive Test Signup Page
+            </h1>
+            <form method="post" action="/signup">
+                <div class="container">
+                    <label for="username"><b>Username</b></label>
+                    <input type="text" placeholder="Enter username" name="username" id="username" required>
+
+                    <label for="password"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="password" id="password" required>
+                    <label for="repassword"><b>Repeated password</b></label>
+                    <input type="password" placeholder="Enter repated password" name="repassword" id="repassword"
+                        required>
+                    <label for="usertype"><b>User Type</b></label>
+                    <select id="usertype" name="usertype">
+                        <option value="driver" selected>Driver</option>
+                        <option value="examiner">Examiner</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                    <button type="submit">Signup</button>
+                    <label>
+                        <span>Already have account. Please <a href="/login">login here</a></span>
+                    </label>
+                </div>
+            </form>
+            <% if(msg) {%>
+            <h1><%= msg %></h1>
+            <% }%>
+        </section>
+    </main>
+    <%- include('./layouts/footer') %>
+</body>
+
+</html>

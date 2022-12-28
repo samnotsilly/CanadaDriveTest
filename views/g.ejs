@@ -1,0 +1,100 @@
+<%- include('./layouts/headStart') %>
+
+<%- include('./layouts/headContent') %>
+
+<title>Drive Test | G</title>
+
+<%- include('./layouts/headEnd') %>
+
+<body>
+    <%- include('./layouts/header') %>
+    <main class="form-container">
+        <section>
+            <h1>
+                Welcome to Drive Test G License Page
+            </h1>
+            <% if(data) {%>
+                <div class="container">
+                    <h1><%=data %></h1>
+                    <h1>
+                        Please <a href="/g">click here</a> to go to g page
+                    </h1>
+                </div>
+                <% } else { %>
+            <form method="get" action="/g">
+                <div class="container pb-0">
+                    <label for="appointmentDate"><b>Select date</b></label>
+                    <input type="date" placeholder="Select date" name="appointmentDate" value="<%=booking.bookingDate%>"
+                        onchange="this.form.submit()">
+                    <p>Select or change date to get slots</p>
+                </div>
+            </form>
+            <form method="post" action="/g">
+                <div class="container">
+
+                    <input type="hidden" name="appointmentDate" value="<%=booking.bookingDate%>" />
+                    <label for="slottime"><b>Slots</b></label>
+                    <% if(booking.isAllSlotBooked || booking.slots.length == 0) { %>
+                    <h6 class="form-h6">No slot available for <%=booking.bookingDate%></h6>
+                    <% } else { %>
+                    <select name="slottime" id="slottime">
+                        <% for(let i = 0; i < booking.slots.length; i++) { %>
+                        <% if(!booking.slots[i].isBooked) {%>
+                        <option value="<%=booking.slots[i].time%>"><%=booking.slots[i].time%></option>
+                        <% } %>
+                        <% } %>
+                    </select>
+                    <% } %>
+
+                    <% if(user.appointmentDate) { %>
+                    <hr />
+                    <div>
+                        <p class="form-h6">Your Appointment booked on <b><%=user.appointmentDate%></b> at
+                            <b><%=user.appointmentTime.time%></b></p>
+                    </div>
+                    <% } %>
+
+                    <input type="hidden" name="id" value="<%=user.id%>">
+                    <label for="firstname"><b>First name</b></label>
+                    <input type="text" placeholder="Enter first name" name="firstname" value="<%=user.firstname%>"
+                        readonly disabled>
+                    <label for="lastname"><b>Last name</b></label>
+                    <input type="text" placeholder="Enter last name" name="lastname" value="<%=user.lastname%>" readonly
+                        disabled>
+                    <label for="username"><b>Username</b></label>
+                    <input type="text" placeholder="Enter username" name="username" value="<%=user.username%>" readonly
+                        disabled>
+                    <label for="dob"><b>Date of birth</b></label>
+                    <input type="date" placeholder="Enter date of birth" name="dob" value="<%=user.dob%>" readonly
+                        disabled>
+                    <label for="licensenumber"><b>License Number</b></label>
+                    <input type="text" placeholder="Enter license number" name="licensenumber"
+                        value="<%=user.licensenumber%>" readonly disabled>
+                    <label for="address"><b>Address</b></label>
+                    <input type="text" placeholder="Enter address" name="address" value="<%=user.address%>">
+                    <label for="city"><b>City</b></label>
+                    <input type="text" placeholder="Enter city" name="city" value="<%=user.city%>">
+                    <label for="pincode"><b>Pincode</b></label>
+                    <input type="text" placeholder="Enter pincode" name="pincode" value="<%=user.pincode%>">
+
+                    <label for="carmodal"><b>Car Modal</b></label>
+                    <input type="text" placeholder="Enter car modal" name="carmodal" value="<%=user.carmodal%>">
+                    <label for="registrationyear"><b>Registration Year</b></label>
+                    <input type="text" placeholder="Enter Registration year" name="registrationyear"
+                        value="<%=user.registrationyear%>">
+                    <label for="carcompanyname"><b>Company name</b></label>
+                    <input type="text" placeholder="Enter company name" name="carcompanyname"
+                        value="<%=user.carcompanyname%>">
+                    <button type="submit">Update</button>
+                </div>
+            </form>
+            <% } %>
+        </section>
+    </main>
+    <%- include('./layouts/footer') %>
+</body>
+
+</html>
+
+<!-- Name :- Neel Vinodbhai Patel -->
+<!-- Studen id :- 8775302 -->

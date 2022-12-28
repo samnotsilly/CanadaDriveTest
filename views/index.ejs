@@ -1,0 +1,141 @@
+<%- include('./layouts/headStart') %>
+
+<%- include('./layouts/headContent') %>
+
+<title>Drive Test | Dashboard</title>
+
+<%- include('./layouts/headEnd') %>
+
+<body>
+    <%- include('./layouts/header') %>
+    <main class="dashboard">
+        <section>
+            <% if(sessiondata && sessiondata.userid && sessiondata.usertype == 'driver') { %>
+                <h1>
+                    Welcome to Drive Test Driver Dashboard
+                </h1>
+                <% if(data.appointmentId) {%>
+                    <div>
+                        <p class="form-h6">
+                            Your Appointment booked on <b><%=data.appointmentDate%></b> at <b><%=data.appointmentTime.time%></b>
+                        </p>
+                    </div>
+                    
+                    <% if(data.status == 'pass') { %>
+                    <div class="alert success">
+                        <strong>Congratulations!</strong> You've passed your <%=data.testType%> exam.
+                    </div>
+                    <div class="commment">
+                        <h3>Comments</h3>
+                        <p><%=data.comment%></p>
+                    </div>
+                    <% } else if(data.status == 'fail') { %>
+                    <div class="alert fail">
+                        <strong>Sorry!</strong> You did not pass your <%=data.testType%> exam. Please try again later.
+                    </div>
+                    <div class="commment">
+                        <h3>Comments</h3>
+                        <p><%=data.comment%></p>
+                    </div>
+                    <% } else { %>
+                    <div class="alert info">
+                        <strong>Pending!</strong> Your <strong><%=data.testType%></strong> exam decision is pending
+                    </div>
+                    <% } %>
+                    
+                <% } else { %>
+                    <div>
+                        <p class="form-h6">
+                            Hello <b><%if(data.firstname && data.lastname) { %> <%=data.firstname %> <%=data.lastname %> <% } else { %> <%=data.username %> <% } %> </b>, you do not have any appointment.
+                            </br>
+                            You can book an appointment for G2 or G License. 
+                        </p>
+                    </div>
+                <% } %>
+            <% } else if(sessiondata && sessiondata.userid && sessiondata.usertype == 'admin') { %>
+                <h1>
+                    Welcome to Drive Test Admin Dashboard
+                </h1>
+                <form method="get" action="/">
+                    <div class="filter d-flex justify-content-end align-item-center">
+                        <label class="container mr-5"><b>Filter</b></label>
+                        <label class="container mr-5">All
+                            <%if(currentSelectedFilter == 'pass' || currentSelectedFilter == 'fail') { %>
+                                <input type="radio" id="all" name="status" value="all">
+                            <% } else { %>
+                                <input type="radio" id="all" name="status" value="all" checked>
+                            <% } %>
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="container mr-5">Pass
+                            <%if(currentSelectedFilter == 'pass') { %>
+                            <input type="radio" id="pass" name="status" value="pass" checked>
+                            <% } else { %>
+                            <input type="radio" id="pass" name="status" value="pass">
+                            <% } %>    
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="container mr-5">Fail
+                            <%if(currentSelectedFilter == 'fail') { %>
+                            <input type="radio" id="fail" name="status" value="fail" checked>
+                            <% } else { %>
+                            <input type="radio" id="fail" name="status" value="fail">
+                            <% } %> 
+                                <span class="checkmark"></span>
+                        </label>
+                        <button type="submit">Search</button>
+                    </div>
+                </form>
+                <%- include('./layouts/table') %>
+            <% } else if(sessiondata && sessiondata.userid && sessiondata.usertype == 'examiner') { %>
+                <h1>
+                    Welcome to Drive Test Examiner Dashboard
+                </h1>
+                <form method="get" action="/">
+                    <div class="filter d-flex justify-content-end align-item-center">
+                        <label class="container mr-5"><b>Filter</b></label>
+                        <label class="container mr-5">All
+                            <%if(currentSelectedFilter == 'g2' || currentSelectedFilter == 'g') { %>
+                                <input type="radio" id="all" name="status" value="all">
+                            <% } else { %>
+                                <input type="radio" id="all" name="status" value="all" checked>
+                            <% } %>
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="container mr-5">G2
+                            <%if(currentSelectedFilter == 'g2') { %>
+                            <input type="radio" id="g2" name="status" value="g2" checked>
+                            <% } else { %>
+                            <input type="radio" id="g2" name="status" value="g2">
+                            <% } %>    
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="container mr-5">G
+                            <%if(currentSelectedFilter == 'g') { %>
+                            <input type="radio" id="g" name="status" value="g" checked>
+                            <% } else { %>
+                            <input type="radio" id="g" name="status" value="g">
+                            <% } %> 
+                                <span class="checkmark"></span>
+                        </label>
+                        <button type="submit">Search</button>
+                    </div>
+                </form>
+                <%- include('./layouts/table') %>
+            <% } else { %>
+                <h1>
+                    Welcome to Drive Test Dashboard
+                </h1>
+                <p>
+                    At DriveTest, our mission is to support the Ministry of Transportation (MTO) in its commitment to
+                    maintain
+                    and improve road user safety by providing driver examination services that are customer-focused,
+                    professionally delivered, and effectively managed
+                </p>
+            <% } %>
+        </section>
+    </main>
+    <%- include('./layouts/footer') %>
+</body>
+
+</html>
